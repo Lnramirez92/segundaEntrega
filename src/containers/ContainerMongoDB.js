@@ -1,16 +1,17 @@
 import mongoose from "mongoose";
-import config from "../config.js";
 import moment from "moment";
-// import cartSchema from "../schemas/CartSchema.js";
+import config from "../config.js";
+import dotenv from "dotenv";
+dotenv.config()
 
-// const URL = "mongodb://localhost:27017/ecommerce"
-
-mongoose.connect(config.mongoLocal.connection, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true
-})
-.then(() => console.log("Base conectada"))
-.catch(err => console.log("Error al conectarse a la base de datos", err))
+if(process.env.DB === "mongo"){
+    mongoose.connect(config.mongoRemote.connection, {
+        useUnifiedTopology: true,
+        useNewUrlParser: true
+    })
+    .then(() => console.log("Base conectada MONGO"))
+    .catch(err => console.log("Error al conectarse a la base de datos", err))
+}
 
 export default class ContainerMongoDB {
     constructor(collectionName, schema){
@@ -19,7 +20,7 @@ export default class ContainerMongoDB {
 
     async save(elem){
         try{
-            const timestamp = moment(new Date()).format('DD/MM/YY HH:mm')
+            const timestamp = moment(new Date()).format('DD/MM/YY HH:mm');
             elem.timestamp = timestamp;
             const doc = await this.collection.create(elem);
             return doc;
@@ -82,53 +83,3 @@ export default class ContainerMongoDB {
         }
     }
 }
-
-
-
-// let container = new ContainerMongoDB("carts", cartSchema);
-
-// const prod1 = {
-//     name: "Nike",
-//     description: "Pantalon",
-//     code: "zxc123",
-//     img: "imagenpantalon",
-//     price: 350,
-//     stock: 50
-// }
-
-// const prod2 = {
-//     name: "Adidas",
-//     description: "Pantalon",
-//     code: "zxc123",
-//     img: "imagenpantalon",
-//     price: 350,
-//     stock: 50
-// }
-
-// const prod3 = {
-//     name: "Puma",
-//     description: "Pantalon",
-//     code: "zxc123",
-//     img: "imagenpantalon",
-//     price: 350,
-//     stock: 50
-// }
-
-// const prod4= {
-//     name: "Reebok",
-//     description: "Pantalon",
-//     code: "zxc123",
-//     img: "imagenpantalon",
-//     price: 350,
-//     stock: 50
-// }
-
-// const cart = {products: [prod1, prod2, prod3, prod4]};
-
-// async function imprimir(){
-//     let data = await container.getAll();
-//     let productos = data.products;
-//     console.log(data[0].products)
-// }
-
-// imprimir();

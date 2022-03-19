@@ -1,11 +1,11 @@
 {
-  "type":"module",
+  "type": "module",
   "name": "2da-entrega-proyecto",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "nodemon src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,6 +14,7 @@
   "dependencies": {
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "firebase-admin": "^10.0.2",
     "moment": "^2.29.1",
     "mongodb": "^4.4.1",
     "mongoose": "^6.2.6"

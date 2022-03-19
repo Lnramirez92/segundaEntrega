@@ -1,8 +1,7 @@
 import express from "express";
 import config from "./config.js";
-
 import productsApiRouter from "./routers/ProductRouter.js";
-// import cartApiRouter from "./routers/CartRouter.js";
+import cartApiRouter from "./routers/CartRouter.js";
 
 const app = express();
 
@@ -13,7 +12,7 @@ app.use(express.urlencoded({extended: true}));
 
 //--------------------------------
 app.use("/api/productos", productsApiRouter);
-// app.use("/api/carritos", cartApiRouter);
+app.use("/api/carrito", cartApiRouter);
 
 
 

@@ -1,11 +1,18 @@
-import dotenv from "dotenv";
-dotenv.config({path: "../../.env"})
+import productosApiMongo from "./products/ProductMongoDBDao.js";
+import productosApiFirebase from "./products/ProductFirebaseDao.js";
+import carritosApiMongo from "./carts/CartMongoDBDao.js";
+import carritosApiFirebase from "./carts/CartFirebaseDao.js";
 
-let productsDao
+let productosApi
+let carritosApi
 
 if(process.env.DB === "mongo"){
-    const { default : ProductMongoDBDao } = await import("../daos/products/ProductMongoDBDao.js");
-    productsDao = new ProductMongoDBDao();
+    productosApi = productosApiMongo;
+    carritosApi = carritosApiMongo;
+}
+else if(process.env.DB === "firebase"){
+    productosApi = productosApiFirebase;
+    carritosApi = carritosApiFirebase;
 }
 
-export {productsDao};
+export { productosApi, carritosApi };
