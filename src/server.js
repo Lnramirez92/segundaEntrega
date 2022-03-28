@@ -10,11 +10,17 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 
-//--------------------------------
+//------------RUTAS---------------
 app.use("/api/productos", productsApiRouter);
 app.use("/api/carrito", cartApiRouter);
 
-
+//------------ERROR---------------
+app.use('*', (req, res) =>
+    res.status(404).json({
+        error: -2,
+        description: `ruta ${req.originalUrl} método ${req.method} no implementado`,
+    })
+);
 
 //--------------------------------
 const connectedServer = app.listen(config.PORT, () => {

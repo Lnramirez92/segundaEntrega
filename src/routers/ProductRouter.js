@@ -44,11 +44,11 @@ productsApiRouter.put("/:id", async (req, res) => {
     }
 });
 
-productsApiRouter.delete("/:id", (req, res) => {
+productsApiRouter.delete("/:id",async (req, res) => {
     if(process.env.admin === "true"){
         try {
             const id = req.params.id;
-            productosApi.deleteById(id);
+            await productosApi.deleteById(id);
             console.log(`Producto con id "${id}" ha sido eliminado`);
             res.send(`Producto con id "${id}" ha sido eliminado`);
         } catch (error) {

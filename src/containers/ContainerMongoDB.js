@@ -63,7 +63,7 @@ export default class ContainerMongoDB {
         }
     }
 
-    async deleById(id){
+    async deleteById(id){
         try{
             await this.collection.deleteOne({_id: id});
             console.log(`Documento con el id "${id}" eliminado con éxito`)
